@@ -1,18 +1,25 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'process';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '',
-      port: 5432,
-      username: '',
-      password: '',
-      database: '',
-      entities: [],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      //환경변수 불러오는 방법
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (cfg: ConfigService) => ({
+        type: 'postgres',
+        host: cfg.get('POSTGRES_HOST'),
+        port: cfg.get('POSTGRES_PORT'),
+        username: cfg.get('POSTGRES_USERNAME'),
+        password: cfg.get('POSTGRES_PASSWORD'),
+        database: cfg.get('POSTGRES_DB'),
+        entities: [],
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
     }),
   ],
 })
