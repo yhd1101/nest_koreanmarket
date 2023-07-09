@@ -1,10 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CommonEntity } from '../../common/entities/common.entity';
 
 @Entity() //model
-export class Product {
-  @PrimaryGeneratedColumn('uuid') //자동생성해주는 키값 uuid= 암호화
-  public id: string;
-
+export class Product extends CommonEntity {
   @Column()
   public name: string;
 
