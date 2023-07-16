@@ -6,10 +6,11 @@ import { LocalAuthStategy } from './strategies/local-auth.stategy';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { JwtAuthStategy } from './strategies/jwt-auth.stategy';
 
 @Module({
   imports: [UsersModule, ConfigModule, JwtModule.register({}), PassportModule], //service형태로 내보냄
   controllers: [AuthController],
-  providers: [AuthService, LocalAuthStategy],
+  providers: [AuthService, LocalAuthStategy, JwtAuthStategy],
 })
 export class AuthModule {}

@@ -6,13 +6,13 @@ import {
   HttpCode,
   UseGuards,
   Req,
+  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoginUserDto } from '../users/dto/login-user.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { User } from '../users/entities/user.entity';
 import { RequestWithUserInterface } from './requestWithUser.interface';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +32,14 @@ export class AuthController {
     const token = await this.authService.generateAccessToken(user.id);
     return { token, user };
     // return await this.authService.Login(loginUserDto);
+  }
+
+  @Get()
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  async getUserInfoByToken(@Req() req: RequestWithUserInterface) {
+    const { user } = req;
+    user.password = undefined;
+    return user;
   }
 }
