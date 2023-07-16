@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,10 +18,28 @@ export class UsersService {
     return { count: users.length, users };
   }
 
-  //회원가입
+  //user생성로직
   async CreateUser(createUserDto: CreateUserDto) {
     const newSignup = await this.userRepository.create(createUserDto);
     await this.userRepository.save(newSignup);
     return newSignup;
+  }
+
+  //user 찾기(by id)
+  async getUserById(id: string) {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new NotFoundException('No user Id');
+    }
+    return user;
+  }
+
+  //email로 찾기
+  async getUserByEmail(email: string) {
+    const user = await this.userRepository.findOneBy({ email });
+    if (!user) {
+      throw new NotFoundException('No user Email');
+    }
+    return user;
   }
 }

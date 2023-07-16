@@ -22,9 +22,15 @@ export class UsersController {
     return users;
   }
   //회원가입
-  @Post('/signup')
+  @Post('/create')
   async postSignup(@Body() createUserDto: CreateUserDto) {
     const newSignup = await this.usersService.CreateUser(createUserDto);
     return newSignup;
+  }
+
+  @Get(':id')
+  async getUserById(@Param('id') id: string) {
+    const user = await this.usersService.getUserById(id);
+    return user;
   }
 }
