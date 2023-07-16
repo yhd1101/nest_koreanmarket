@@ -29,7 +29,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard) //Guard에서 검증됨
   async userLogin(@Req() req: RequestWithUserInterface) {
     const user = req.user;
-    return user;
+    const token = await this.authService.generateAccessToken(user.id);
+    return { token, user };
     // return await this.authService.Login(loginUserDto);
   }
 }
