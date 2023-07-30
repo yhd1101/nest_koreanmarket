@@ -13,6 +13,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithUserInterface } from './requestWithUser.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +29,10 @@ export class AuthController {
     return await this.authService.sendEmail(email);
   }
 
+  @Post('confirm/email')
+  async confirmEmail(@Body() confirmEmailDto: ConfirmEmailDto) {
+    return await this.authService.confirmEmail(confirmEmailDto);
+  }
   //로그인 이메일, 비밀번호맞는지 이메일먼저찾기,
   @Post('login')
   @HttpCode(200)

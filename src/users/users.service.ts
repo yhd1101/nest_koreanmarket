@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
+    @InjectRepository(User) //db활용
     private userRepository: Repository<User>,
   ) {}
 
