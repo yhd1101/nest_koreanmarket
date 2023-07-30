@@ -14,6 +14,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithUserInterface } from './requestWithUser.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
+import { ChangePasswordDto } from '../users/dto/change-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -51,5 +52,15 @@ export class AuthController {
     const { user } = req;
     user.password = undefined;
     return user;
+  }
+
+  @Post('forgot/password') //비밀번호 재설정위한 메일전송
+  async forgotPassword(@Body('email') email: string) {
+    return await this.authService.forgotPassword(email);
+  }
+
+  @Post('change/paassword') //비밀번호 바꾸기
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+    return await this.authService.changePassword(changePasswordDto);
   }
 }

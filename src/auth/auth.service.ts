@@ -17,6 +17,7 @@ import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { CACHE_MANAGER } from '@nestjs/common/cache';
 import { Cache } from 'cache-manager'; //확인잘하기
 import { sendEmail } from '../common/template/sendEmail';
+import { ChangePasswordDto } from '../users/dto/change-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -87,6 +88,15 @@ export class AuthService {
     await this.cacheManger.del(confirmEmailDto.email);
     return true;
   }
+  async forgotPassword(email: string) {
+    await this.emailService.sendMail({
+      to: email,
+      subject: 'forgot password',
+      text: `패스워드 변경하려면 아래 버튼을 눌러주세요`,
+    });
+    return true;
+  }
+  async changePassword(changePasswordDto: ChangePasswordDto) {}
 
   //랜덤함수
   generateOTP() {
