@@ -23,6 +23,11 @@ export class AuthController {
     return await this.authService.createUser(createUserDto);
   }
 
+  @Post('send/email')
+  async sendEmail(@Body('email') email: string) {
+    return await this.authService.sendEmail(email);
+  }
+
   //로그인 이메일, 비밀번호맞는지 이메일먼저찾기,
   @Post('login')
   @HttpCode(200)

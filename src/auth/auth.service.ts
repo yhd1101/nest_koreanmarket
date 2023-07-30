@@ -46,4 +46,6 @@ export class AuthService {
     });
     return token;
   }
+
+  public sendEmail(email: string) {}
 }

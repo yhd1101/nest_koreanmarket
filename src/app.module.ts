@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -21,6 +22,9 @@ import * as Joi from '@hapi/joi';
         POSTGRES_DB: Joi.string().required(),
         ACCESSTOKEN_SECRET_KEY: Joi.string().required(),
         ACCESSTOKEN_EXPIRATION_TIME: Joi.number().required(),
+        EMAIL_SERVICE: Joi.string().required(),
+        EMAIL_USER: Joi.string().required(),
+        EMAIL_PASSWORD: Joi.string().required(),
       }),
     }), //env파일을 인식해줌
     ProductModule,
@@ -28,6 +32,7 @@ import * as Joi from '@hapi/joi';
     DatabaseModule,
     UsersModule,
     AuthModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -13,8 +13,8 @@ export class JwtAuthStategy extends PassportStrategy(Strategy) {
     private configService: ConfigService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get('ACCESSTOKEN_SECRET_KEY'),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), //토큰을 헤더이담겨줌 (bearToken)
+      secretOrKey: configService.get('ACCESSTOKEN_SECRET_KEY'), //검증키 (열쇠같은거)
     });
   }
   //토큰검증해주는 함수
