@@ -16,6 +16,7 @@ import { verificationEmail } from '../common/template/verificationEmail';
 import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { CACHE_MANAGER } from '@nestjs/common/cache';
 import { Cache } from 'cache-manager'; //확인잘하기
+import { sendEmail } from '../common/template/sendEmail';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +31,13 @@ export class AuthService {
   //회원가입 로직
   async createUser(createUserDto: CreateUserDto) {
     const user = await this.usersService.CreateUser(createUserDto);
-    user.password = undefined; //패스워드를 가려줌 (postman에 안보여짐)
+    user.password = undefined; //패스워드를 가려줌
+    await this.emailService.sendMail({
+      to: createUserDto.email,
+      subject: 'Welcome to koreanmarket',
+      text: 'welcome',
+      // html: sendEmail(createUserDto.name),
+    });
     return user;
   }
 
