@@ -78,6 +78,9 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async googleLoginCallBack(@Req() req: any): Promise<any> {
-    return req.user;
+    //token 생성
+    const { user } = req;
+    const token = await this.authService.generateAccessToken(user.id);
+    return { token, user };
   }
 }
