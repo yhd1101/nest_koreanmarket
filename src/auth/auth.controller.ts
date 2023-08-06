@@ -7,6 +7,7 @@ import {
   UseGuards,
   Req,
   Get,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -15,6 +16,7 @@ import { RequestWithUserInterface } from './requestWithUser.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
+import { GoogleAuthGuard } from './guards/google-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -62,5 +64,20 @@ export class AuthController {
   @Post('change/paassword') //비밀번호 바꾸기
   async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
     return await this.authService.changePassword(changePasswordDto);
+  }
+  //구글에 접속하는 코드(로그인요청 코드)
+  @HttpCode(200)
+  @Get('google')
+  @UseGuards(GoogleAuthGuard)
+  async googleLogin(): Promise<any> {
+    return HttpStatus.OK;
+  }
+
+  //요청을 받고 구글에서 던져주는 정보를 아래 api에 받겠다.
+  @HttpCode(200)
+  @Get('google/callback')
+  @UseGuards(GoogleAuthGuard)
+  async googleLoginCallBack(@Req() req: any): Promise<any> {
+    return req.user;
   }
 }

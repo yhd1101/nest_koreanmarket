@@ -7,7 +7,7 @@ import { CreateUserDto } from '../../users/dto/create-user.dto';
 import { User } from '../../users/entities/user.entity'; //이메일 로그인시 적용되는 보안 라이브러리
 
 @Injectable()
-export class LocalAuthStategy extends PassportStrategy(Strategy) {
+export class LocalAuthStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
     super({
       usernameField: 'email', //이메일값을 기준
