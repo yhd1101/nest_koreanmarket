@@ -17,6 +17,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
+import { KakaoAuthGuard } from './guards/kakao-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -82,5 +83,23 @@ export class AuthController {
     const { user } = req;
     const token = await this.authService.generateAccessToken(user.id);
     return { token, user };
+  }
+
+  @HttpCode(200)
+  @Get('kakao')
+  @UseGuards(KakaoAuthGuard)
+  async kakaoLogin(): Promise<any> {
+    return HttpStatus.OK;
+  }
+
+  @HttpCode(200)
+  @Get('kakao/callback')
+  @UseGuards(KakaoAuthGuard)
+  async kakaoLoginCallBack(@Req() req: any): Promise<any> {
+    //token 생성
+    const { user } = req;
+    // const token = await this.authService.generateAccessToken(user.id);
+    // return { token, user };
+    return user;
   }
 }

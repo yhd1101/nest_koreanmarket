@@ -9,6 +9,8 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtAuthStrategy } from './strategies/jwt-auth.strategy';
 import { EmailModule } from '../email/email.module';
 import { GoogleAuthStrategy } from './strategies/google-auth.strategy';
+import { KakaoAuthGuard } from './guards/kakao-auth.guard';
+import { KakaoAuthStrategy } from './strategies/kakao-auth.strategy';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { GoogleAuthStrategy } from './strategies/google-auth.strategy';
     LocalAuthStrategy,
     JwtAuthStrategy,
     GoogleAuthStrategy,
+    KakaoAuthStrategy,
   ],
 })
 export class AuthModule {}

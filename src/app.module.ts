@@ -38,6 +38,9 @@ import * as Joi from '@hapi/joi';
         GOOGLE_AUTH_CLIENTID: Joi.string().required(),
         GOOGLE_AUTH_CLIENTSECRET: Joi.string().required(),
         GOOGLE_AUTH_CALLBACK_URL: Joi.string().required(),
+
+        KAKAO_AUTH_CLIENTID: Joi.string().required(),
+        KAKAO_AUTH_CALLBACK_URL: Joi.string().required(),
       }),
     }), //env파일을 인식해줌
     ProductModule,
