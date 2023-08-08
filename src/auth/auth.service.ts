@@ -16,7 +16,6 @@ import { verificationEmail } from '../common/template/verificationEmail';
 import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { CACHE_MANAGER } from '@nestjs/common/cache';
 import { Cache } from 'cache-manager'; //확인잘하기
-import { sendEmail } from '../common/template/sendEmail';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
 
 @Injectable()

@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { Provider } from './entities/provider.enum';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,7 @@ export class UsersService {
   //user생성로직
   async CreateUser(createUserDto: CreateUserDto) {
     const newSignup = await this.userRepository.create(createUserDto);
+    newSignup.provider = Provider.LOCAL;
     await this.userRepository.save(newSignup);
     return newSignup;
   }
