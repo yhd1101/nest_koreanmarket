@@ -1,15 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
 import { Provider } from '../../users/entities/provider.enum';
 import { ConfigService } from '@nestjs/config';
+import { UsersService } from '../../users/users.service';
 
 @Injectable()
 export class KakaoAuthStrategy extends PassportStrategy(
   Strategy,
   Provider.KAKAO,
 ) {
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly usersService: UsersService,
+  ) {
     super({
       clientID: configService.get('KAKAO_AUTH_CLIENTID'),
       callbackURL: configService.get('KAKAO_AUTH_CALLBACK_URL'),
@@ -22,6 +26,39 @@ export class KakaoAuthStrategy extends PassportStrategy(
     profile: any,
     done: any,
   ): Promise<any> {
-    done(null, profile);
+    // console.log(profile);
+    // const userData = profile._raw[0];
+    // console.log(profile._json.properties.profile_image);
+    // done(null, profile);
+    const { displayName, provider } = profile;
+    const { profile_image } = profile._json.properties;
+    const { email } = profile._json.kakao_account;
+    const userInput = {
+      name: displayName,
+      email,
+      provider,
+      picture: profile_image,
+    };
+    console.log(userInput);
+    try {
+      const user = await this.usersService.getUserByEmail(email);
+      if (user.provider !== provider) {
+        throw new HttpException(
+          `You are already subscribed to ${user.provider}`,
+          HttpStatus.CONFLICT,
+        );
+      }
+      done(null, user);
+    } catch (err) {
+      if (err.status === 404) {
+        const newUser = await this.usersService.CreateUser({
+          email,
+          name: displayName,
+          provider,
+          profileImg: profile_image,
+        });
+        done(null, newUser);
+      }
+    }
   }
 }

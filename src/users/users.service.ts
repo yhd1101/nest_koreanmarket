@@ -21,7 +21,7 @@ export class UsersService {
   //user생성로직
   async CreateUser(createUserDto: CreateUserDto) {
     const newSignup = await this.userRepository.create(createUserDto);
-    newSignup.provider = Provider.LOCAL;
+    // newSignup.provider = Provider.LOCAL;
     await this.userRepository.save(newSignup);
     return newSignup;
   }

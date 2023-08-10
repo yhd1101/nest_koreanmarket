@@ -41,6 +41,10 @@ import * as Joi from '@hapi/joi';
 
         KAKAO_AUTH_CLIENTID: Joi.string().required(),
         KAKAO_AUTH_CALLBACK_URL: Joi.string().required(),
+
+        NAVER_AUTH_CLIENTID: Joi.string().required(),
+        NAVER_AUTH_CLIENTSECRET: Joi.string().required(),
+        NAVAER_AUTH_CALLBACK_URL: Joi.string().required(),
       }),
     }), //env파일을 인식해줌
     ProductModule,

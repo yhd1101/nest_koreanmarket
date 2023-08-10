@@ -11,6 +11,8 @@ import { EmailModule } from '../email/email.module';
 import { GoogleAuthStrategy } from './strategies/google-auth.strategy';
 import { KakaoAuthGuard } from './guards/kakao-auth.guard';
 import { KakaoAuthStrategy } from './strategies/kakao-auth.strategy';
+import { NaverAuthGuard } from './guards/naver-auth.guard';
+import { NaverAuthStrategy } from './strategies/naver-auth.strategy';
 
 @Module({
   imports: [
@@ -27,6 +29,7 @@ import { KakaoAuthStrategy } from './strategies/kakao-auth.strategy';
     JwtAuthStrategy,
     GoogleAuthStrategy,
     KakaoAuthStrategy,
+    NaverAuthStrategy,
   ],
 })
 export class AuthModule {}

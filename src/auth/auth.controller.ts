@@ -18,6 +18,7 @@ import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { KakaoAuthGuard } from './guards/kakao-auth.guard';
+import { NaverAuthGuard } from './guards/naver-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -96,10 +97,23 @@ export class AuthController {
   @Get('kakao/callback')
   @UseGuards(KakaoAuthGuard)
   async kakaoLoginCallBack(@Req() req: any): Promise<any> {
-    //token 생성
     const { user } = req;
-    // const token = await this.authService.generateAccessToken(user.id);
-    // return { token, user };
+    const token = await this.authService.generateAccessToken(user.id);
+    return { token, user };
+  }
+
+  //naver
+  @HttpCode(200)
+  @Get('naver')
+  @UseGuards(NaverAuthGuard)
+  async naverLogin(): Promise<any> {
+    return HttpStatus.OK;
+  }
+  @HttpCode(200)
+  @Get('naver/callback')
+  @UseGuards(NaverAuthGuard)
+  async naverLoginCallBack(@Req() req: any): Promise<any> {
+    const { user } = req;
     return user;
   }
 }
