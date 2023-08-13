@@ -8,7 +8,7 @@ import {
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from '../users/dto/login-user.dto';
-import { TokenPayloadInterface } from './tokenPayload.interface';
+import { TokenPayloadInterface } from './interfaces/tokenPayload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { EmailService } from '../email/email.service';
@@ -17,6 +17,7 @@ import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { CACHE_MANAGER } from '@nestjs/common/cache';
 import { Cache } from 'cache-manager'; //확인잘하기
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
+import { VerificationTokenPayloadInterface } from './interfaces/verificationTokenPayload.interface';
 
 @Injectable()
 export class AuthService {
@@ -88,7 +89,7 @@ export class AuthService {
     return true;
   }
   async forgotPassword(email: string) {
-    const payload: any = { email };
+    const payload: VerificationTokenPayloadInterface = { email };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_CHAGNE_PASSWORD_SECRET'),
       expiresIn: this.configService.get('JWT_CHAGNE_PASSWORD_EXPIRESIN'), //10분동안 유효한 token
@@ -106,7 +107,29 @@ export class AuthService {
     });
     return true;
   }
-  async changePassword(changePasswordDto: ChangePasswordDto) {}
+  async changePassword(changePasswordDto: ChangePasswordDto) {
+    const email = await this.decodedConfirmationToken(changePasswordDto.token);
+    return await this.usersService.changePassword(
+      email,
+      changePasswordDto.newPassword,
+    ); //패스워드바꾸기 함수 먼저만들고하기
+  }
+
+  //토큰 푸는 함수
+  public async decodedConfirmationToken(token: string) {
+    try {
+      const payload = await this.jwtService.verify(token, {
+        secret: this.configService.get('JWT_CHAGNE_PASSWORD_SECRET'),
+      });
+      return payload.email;
+    } catch (err) {
+      if (err?.name === 'TokenExpiredError') {
+        throw new BadRequestException('token expired error');
+      } else {
+        throw new BadRequestException('token error');
+      }
+    }
+  }
 
   //랜덤함수
   generateOTP() {

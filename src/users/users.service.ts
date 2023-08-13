@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { Provider } from './entities/provider.enum';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -42,5 +43,12 @@ export class UsersService {
       throw new NotFoundException('No user Email');
     }
     return user;
+  }
+
+  //패스워드 바꾸기
+  async changePassword(email: string, password: string) {
+    const user = await this.userRepository.findOneBy({ email });
+    user.password = await bcrypt.hash(password, 10);
+    return this.userRepository.save(user);
   }
 }

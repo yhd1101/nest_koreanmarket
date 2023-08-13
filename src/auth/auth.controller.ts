@@ -12,7 +12,7 @@ import {
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { RequestWithUserInterface } from './requestWithUser.interface';
+import { RequestWithUserInterface } from './interfaces/requestWithUser.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
@@ -76,7 +76,7 @@ export class AuthController {
     return await this.authService.forgotPassword(email);
   }
 
-  @Post('change/paassword') //비밀번호 바꾸기
+  @Post('change/password') //비밀번호 바꾸기
   async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
     return await this.authService.changePassword(changePasswordDto);
   }
