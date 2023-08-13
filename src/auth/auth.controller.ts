@@ -19,7 +19,8 @@ import { ChangePasswordDto } from '../users/dto/change-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { KakaoAuthGuard } from './guards/kakao-auth.guard';
 import { NaverAuthGuard } from './guards/naver-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { User } from '../users/entities/user.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -27,11 +28,18 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   //회원가입
   @Post('signup')
+  @ApiCreatedResponse({
+    description: 'the record has been success with user',
+    type: User,
+  }) //성공시 응답을 해주겠다.
   async userSignup(@Body() createUserDto: CreateUserDto) {
     return await this.authService.createUser(createUserDto);
   }
 
   @Post('send/email')
+  @ApiResponse({
+    description: 'email send verify',
+  })
   async sendEmail(@Body('email') email: string) {
     return await this.authService.sendEmail(email);
   }
@@ -44,6 +52,9 @@ export class AuthController {
   @Post('login')
   @HttpCode(200)
   @UseGuards(LocalAuthGuard) //Guard에서 검증됨
+  @ApiResponse({
+    description: 'login success',
+  })
   async userLogin(@Req() req: RequestWithUserInterface) {
     const user = req.user;
     const token = await this.authService.generateAccessToken(user.id);

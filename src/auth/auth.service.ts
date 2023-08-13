@@ -88,10 +88,21 @@ export class AuthService {
     return true;
   }
   async forgotPassword(email: string) {
+    const payload: any = { email };
+    const token = this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_CHAGNE_PASSWORD_SECRET'),
+      expiresIn: this.configService.get('JWT_CHAGNE_PASSWORD_EXPIRESIN'), //10분동안 유효한 token
+    });
+    const url = `${this.configService.get(
+      'PASSWORD_CHANGE_URL',
+    )}?token=${token}`;
     await this.emailService.sendMail({
       to: email,
-      subject: 'forgot password',
-      text: `패스워드 변경하려면 아래 버튼을 눌러주세요`,
+      subject: 'forgot password - koreamarket',
+      html: `
+        <h3>패스워드 변경하려면 아래 버튼을 눌러주세요</h3> <br>
+        <h1>${url}</h1>
+        `,
     });
     return true;
   }

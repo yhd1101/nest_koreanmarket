@@ -45,6 +45,10 @@ import * as Joi from '@hapi/joi';
         NAVER_AUTH_CLIENTID: Joi.string().required(),
         NAVER_AUTH_CLIENTSECRET: Joi.string().required(),
         NAVAER_AUTH_CALLBACK_URL: Joi.string().required(),
+
+        JWT_CHAGNE_PASSWORD_SECRET: Joi.string().required(),
+        JWT_CHAGNE_PASSWORD_EXPIRESIN: Joi.string().required(),
+        PASSWORD_CHANGE_URL: Joi.string().required(),
       }),
     }), //env파일을 인식해줌
     ProductModule,
