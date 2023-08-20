@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { LoginUserDto } from '../users/dto/login-user.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithUserInterface } from './interfaces/requestWithUser.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -19,7 +20,12 @@ import { ChangePasswordDto } from '../users/dto/change-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { KakaoAuthGuard } from './guards/kakao-auth.guard';
 import { NaverAuthGuard } from './guards/naver-auth.guard';
-import { ApiCreatedResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { User } from '../users/entities/user.entity';
 
 @ApiTags('Auth')
@@ -50,6 +56,7 @@ export class AuthController {
   }
   //로그인 이메일, 비밀번호맞는지 이메일먼저찾기,
   @Post('login')
+  @ApiBody({ type: LoginUserDto })
   @HttpCode(200)
   @UseGuards(LocalAuthGuard) //Guard에서 검증됨
   @ApiResponse({

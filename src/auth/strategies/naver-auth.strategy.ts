@@ -23,7 +23,7 @@ export class NaverAuthStrategy extends PassportStrategy(
       clientID: configService.get('NAVER_AUTH_CLIENTID'),
       clientSecret: configService.get('NAVER_AUTH_CLIENTSECRET'),
       callbackURL: configService.get('NAVER_AUTH_CALLBACK_URL'),
-      scope: ['email', 'name', 'birthyear', 'nickname', 'age'],
+      scope: ['email', 'name', 'nickname'],
     });
   }
 

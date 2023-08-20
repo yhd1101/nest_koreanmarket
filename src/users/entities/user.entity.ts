@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
 import { CommonEntity } from '../../common/entities/common.entity';
 import {
   HttpException,
@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import * as gravatar from 'gravatar';
-import { Provider } from './provider.enum'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
+import { Provider } from './provider.enum';
+import { Product } from '../../product/entities/product.entity'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
 
 @Entity()
 export class User extends CommonEntity {
@@ -17,6 +18,9 @@ export class User extends CommonEntity {
   public email: string;
   @Column({ nullable: true }) //null값을 허용
   public password?: string;
+
+  @OneToMany(() => Product, (product: Product) => product.seller)
+  public products: Product[];
 
   @Column({
     type: 'enum',
