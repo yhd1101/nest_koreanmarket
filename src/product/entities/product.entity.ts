@@ -1,12 +1,7 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { CommonEntity } from '../../common/entities/common.entity';
 import { User } from '../../users/entities/user.entity';
+import { Comment } from '../../comment/entities/comment.entity';
 
 @Entity() //model
 export class Product extends CommonEntity {
@@ -52,4 +47,7 @@ export class Product extends CommonEntity {
   @ManyToOne(() => User, (user: User) => user.products)
   @JoinColumn()
   public seller: User;
+
+  @OneToMany(() => Comment, (comment: Comment) => comment.product)
+  public comments: Comment[];
 }

@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { RedisModule } from './redis/redis.module';
+import { CommentModule } from './comment/comment.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -58,6 +59,7 @@ import * as Joi from '@hapi/joi';
     AuthModule,
     EmailModule,
     RedisModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
