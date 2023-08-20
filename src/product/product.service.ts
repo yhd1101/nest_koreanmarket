@@ -31,7 +31,18 @@ export class ProductService {
   }
 
   async productGetById(id: string) {
-    const product = await this.productRepository.findOneBy({ id });
+    const product = await this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.seller', 'seller')
+      .leftJoinAndSelect('product.comments', 'comments')
+      .where('product.id = :id', { id })
+      .getOne();
+    // const product = await this.productRepository.findOneBy({
+    //   where: { id },
+    //   relations: {
+    //     seller: true,
+    //   },
+    // });
     if (!product) {
       // id가 없을때 만들어줌
       throw new HttpException('No id', HttpStatus.NOT_FOUND);
