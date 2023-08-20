@@ -6,10 +6,14 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
 
 @ApiTags('Product')
 @Controller('product')
@@ -23,7 +27,9 @@ export class ProductController {
   }
   //product 등록하기
   @Post('/create')
+  @UseGuards(JwtAuthGuard) //로그인유무 확인 등록하기위해서
   async createProduct(
+    @Req() req: RequestWithUserInterface,
     @Body() createProductDto: CreateProductDto,
     // @Body('name') name: string,
     // @Body('desc') desc: string,
@@ -31,6 +37,7 @@ export class ProductController {
   ) {
     const newProduct = await this.productService.productCreate(
       createProductDto,
+      req.user,
     );
     return newProduct;
   }

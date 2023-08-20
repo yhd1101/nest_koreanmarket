@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class ProductService {
@@ -12,16 +13,21 @@ export class ProductService {
   ) {}
 
   //등록해주는 로직
-  async productCreate(createProductDto: CreateProductDto) {
-    const newProduct = await this.productRepository.create(createProductDto);
+  async productCreate(createProductDto: CreateProductDto, user: User) {
+    const newProduct = await this.productRepository.create({
+      ...createProductDto,
+      seller: user,
+    });
     await this.productRepository.save(newProduct);
     return newProduct;
   }
 
   //전체불러오는 로직
   async productGetAll() {
-    const products = await this.productRepository.find();
-    return { count: products.length, products };
+    const products = await this.productRepository.find({
+      relations: ['seller', 'comments'], //누가 올렸는지 알기위해서
+    });
+    return products;
   }
 
   async productGetById(id: string) {

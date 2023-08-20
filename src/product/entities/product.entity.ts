@@ -8,8 +8,11 @@ export class Product extends CommonEntity {
   @Column()
   public name: string;
 
-  @Column()
-  public desc: string;
+  @Column('text', {
+    array: true,
+    nullable: true,
+  })
+  public desc?: string[];
 
   @Column()
   public price: number;
@@ -28,18 +31,10 @@ export class Product extends CommonEntity {
   @Column()
   public region: string;
 
-  @Column()
-  public desc2: string;
-
   @Column({
     default: true,
   })
   public isSelling: boolean;
-
-  @Column({
-    default: 1,
-  })
-  public stock: number; // 재고
 
   @Column()
   public brand: string;
