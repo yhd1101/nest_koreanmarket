@@ -18,16 +18,33 @@ export class ProductService {
       ...createProductDto,
       seller: user,
     });
+    console.log(newProduct);
     await this.productRepository.save(newProduct);
     return newProduct;
   }
 
   //전체불러오는 로직
-  async productGetAll() {
-    const products = await this.productRepository.find({
-      relations: ['seller', 'comments'], //누가 올렸는지 알기위해서
-    });
-    return products;
+  async productGetAll(category?: string) {
+    // const products = await this.productRepository.find();
+    // return { count: products.length, products };
+    const queryBuilder = await this.productRepository.createQueryBuilder(
+      'product',
+    );
+    // queryBuilder.leftJoinAndSelect('product.user', 'user');
+    queryBuilder.leftJoinAndSelect('product.comments', 'comments');
+    const { entities } = await queryBuilder.getRawAndEntities();
+    return entities;
+    // if (category && category.length > 0) {
+    //   queryBuilder.where('product.category IN (:...category)', { category });
+    // }
+    // return queryBuilder;
+    // if (category) {
+    //   return await this.productRepository.findOneBy({ category });
+    // } else {
+    //   return await this.productRepository.find({
+    //     relations: ['seller', 'comments'], //누가 올렸는지 알기위해서
+    //   });
+    // }
   }
 
   async productGetById(id: string) {

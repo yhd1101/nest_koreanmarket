@@ -8,6 +8,7 @@ import {
   Req,
   Get,
   HttpStatus,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -99,11 +100,12 @@ export class AuthController {
   @HttpCode(200)
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleLoginCallBack(@Req() req: any): Promise<any> {
+  async googleLoginCallBack(@Req() req: any, @Res() res: any): Promise<any> {
     //token 생성
     const { user } = req;
     const token = await this.authService.generateAccessToken(user.id);
-    return { token, user };
+    const mainPageUrl = 'http://localhost:3000';
+    res.res.redirect(mainPageUrl);
   }
 
   @HttpCode(200)

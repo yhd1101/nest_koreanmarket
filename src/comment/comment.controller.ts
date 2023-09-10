@@ -13,5 +13,7 @@ export class CommentController {
   async createComment(
     @Req() req: RequestWithUserInterface,
     @Body() createCommentDto: CreateCommentDto,
-  ) {}
+  ) {
+    return await this.commentService.createComment(createCommentDto, req.user);
+  }
 }

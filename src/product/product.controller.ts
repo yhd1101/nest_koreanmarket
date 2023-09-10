@@ -8,6 +8,7 @@ import {
   Put,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -21,8 +22,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
   //product전체 불러오기
   @Get()
-  async getAllProducts() {
-    const products = await this.productService.productGetAll();
+  async getAllProducts(@Query('category') category?: string) {
+    const products = await this.productService.productGetAll(category);
     return products;
   }
   //product 등록하기
@@ -35,6 +36,8 @@ export class ProductController {
     // @Body('desc') desc: string,
     // @Body('price') price: number,
   ) {
+    console.log(createProductDto);
+    console.log(req.user);
     const newProduct = await this.productService.productCreate(
       createProductDto,
       req.user,
@@ -47,6 +50,7 @@ export class ProductController {
     const product = await this.productService.productGetById(id);
     return product;
   }
+
   //product update
   @Put(':id')
   async updateProductById(
