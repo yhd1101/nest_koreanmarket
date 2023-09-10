@@ -25,26 +25,18 @@ export class ProductService {
 
   //전체불러오는 로직
   async productGetAll(category?: string) {
-    // const products = await this.productRepository.find();
-    // return { count: products.length, products };
+    //?옵션 있어도그만없어도그만
     const queryBuilder = await this.productRepository.createQueryBuilder(
       'product',
-    );
-    // queryBuilder.leftJoinAndSelect('product.user', 'user');
-    queryBuilder.leftJoinAndSelect('product.comments', 'comments');
+    ); //db에 쿼리를직접 해줌
+    queryBuilder.leftJoinAndSelect('product.seller', 'seller'); //관계형
+    queryBuilder.leftJoinAndSelect('product.comments', 'comments'); //관계형
+    if (category && category.length > 0) {
+      //category에 검색키워드 이거를 검색하면 가져오겠다.
+      queryBuilder.andWhere(':category = ANY(product.category)', { category });
+    }
     const { entities } = await queryBuilder.getRawAndEntities();
     return entities;
-    // if (category && category.length > 0) {
-    //   queryBuilder.where('product.category IN (:...category)', { category });
-    // }
-    // return queryBuilder;
-    // if (category) {
-    //   return await this.productRepository.findOneBy({ category });
-    // } else {
-    //   return await this.productRepository.find({
-    //     relations: ['seller', 'comments'], //누가 올렸는지 알기위해서
-    //   });
-    // }
   }
 
   async productGetById(id: string) {
