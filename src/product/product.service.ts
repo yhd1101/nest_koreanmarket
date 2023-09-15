@@ -44,6 +44,7 @@ export class ProductService {
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.seller', 'seller')
       .leftJoinAndSelect('product.comments', 'comments')
+      .leftJoinAndSelect('comments.user', 'user')
       .where('product.id = :id', { id })
       .getOne();
     // const product = await this.productRepository.findOneBy({

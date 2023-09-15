@@ -1,7 +1,15 @@
-import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { CommonEntity } from '../../common/entities/common.entity';
 import { User } from '../../users/entities/user.entity';
 import { Comment } from '../../comment/entities/comment.entity';
+import { Reservation } from '../../reservation/entities/reservation.entity';
 
 @Entity() //model
 export class Product extends CommonEntity {
@@ -45,4 +53,10 @@ export class Product extends CommonEntity {
 
   @OneToMany(() => Comment, (comment: Comment) => comment.product)
   public comments: Comment[];
+
+  @OneToOne(
+    () => Reservation,
+    (reservation: Reservation) => reservation.product,
+  )
+  public Reservation: Reservation;
 }

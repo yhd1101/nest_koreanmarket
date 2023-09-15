@@ -1,4 +1,12 @@
-import { Controller, Post, UseGuards, Req, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Req,
+  Body,
+  Get,
+  Param,
+} from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
@@ -15,5 +23,11 @@ export class CommentController {
     @Body() createCommentDto: CreateCommentDto,
   ) {
     return await this.commentService.createComment(createCommentDto, req.user);
+  }
+
+  @Get(':id')
+  async getCommentById(@Param('id') id: string) {
+    const comment = await this.commentService.commentGeyById(id);
+    return comment;
   }
 }

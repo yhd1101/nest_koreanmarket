@@ -9,7 +9,8 @@ import * as bcrypt from 'bcryptjs';
 import * as gravatar from 'gravatar';
 import { Provider } from './provider.enum';
 import { Product } from '../../product/entities/product.entity';
-import { Comment } from '../../comment/entities/comment.entity'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
+import { Comment } from '../../comment/entities/comment.entity';
+import { Reservation } from '../../reservation/entities/reservation.entity'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
 
 @Entity()
 export class User extends CommonEntity {
@@ -22,6 +23,9 @@ export class User extends CommonEntity {
 
   @OneToMany(() => Product, (product: Product) => product.seller)
   public products: Product[];
+
+  @OneToMany(() => Reservation, (reservation: Reservation) => reservation.user)
+  public reservation: Reservation[];
 
   @Column({
     type: 'enum',
