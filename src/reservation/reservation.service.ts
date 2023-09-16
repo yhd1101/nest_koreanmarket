@@ -1,13 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from './entities/reservation.entity';
 import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../product/entities/product.entity';
-import { query } from 'express';
-
 @Injectable()
 export class ReservationService {
   constructor(
@@ -27,7 +24,7 @@ export class ReservationService {
     await this.reservationRepository.save(newReservation);
     return newReservation;
   }
-  async reservationGetAll() {
+  async reservationGetAll(user?: User, product?: Product) {
     // const reservations = await this.reservationRepository.find({
     //   relations: ['users'], //관계형으로 이어진것을 보여줌
     // });
@@ -37,8 +34,15 @@ export class ReservationService {
     );
     queryBuilder.leftJoinAndSelect('reservation.user', 'users');
     queryBuilder.leftJoinAndSelect('reservation.product', 'product');
+
+    if (user) {
+      queryBuilder.where('reservation.user = :user', { user });
+    }
+    if (product) {
+      queryBuilder.where('reservation.product.id = :product', { product });
+    }
     const { entities } = await queryBuilder.getRawAndEntities();
-    return entities;
+    return { count: entities.length, body: entities };
   }
 
   async reservationGetById(id: string) {

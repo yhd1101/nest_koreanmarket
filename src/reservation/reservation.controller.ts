@@ -3,18 +3,17 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
-import { ProductInterface } from '../auth/interfaces/product.interface';
+import { User } from '../users/entities/user.entity';
+import { Product } from '../product/entities/product.entity';
 
 @Controller('reservation')
 export class ReservationController {
@@ -34,8 +33,14 @@ export class ReservationController {
   }
 
   @Get()
-  async getAllReservation() {
-    const reservations = await this.reservationService.reservationGetAll();
+  async getAllReservation(
+    @Query('user') user?: User,
+    @Query('product') product?: Product,
+  ) {
+    const reservations = await this.reservationService.reservationGetAll(
+      user,
+      product,
+    );
     return reservations;
   }
 

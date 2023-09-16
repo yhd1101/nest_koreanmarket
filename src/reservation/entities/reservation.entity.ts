@@ -25,6 +25,7 @@ export class Reservation extends CommonEntity {
   public purchase: boolean;
 
   @ManyToOne(() => User, (user: User) => user.reservation)
+  @JoinColumn()
   public user: User;
 
   @Column()
