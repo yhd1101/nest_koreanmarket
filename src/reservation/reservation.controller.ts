@@ -32,4 +32,16 @@ export class ReservationController {
     );
     return newReservation;
   }
+
+  @Get()
+  async getAllReservation() {
+    const reservations = await this.reservationService.reservationGetAll();
+    return reservations;
+  }
+
+  @Get(':id')
+  async getReservationById(@Param('id') id: string) {
+    const reservation = await this.reservationService.reservationGetById(id);
+    return reservation;
+  }
 }

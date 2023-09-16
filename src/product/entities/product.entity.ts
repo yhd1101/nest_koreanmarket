@@ -58,5 +58,6 @@ export class Product extends CommonEntity {
     () => Reservation,
     (reservation: Reservation) => reservation.product,
   )
-  public Reservation: Reservation;
+  @JoinColumn()
+  public reservation: Reservation;
 }

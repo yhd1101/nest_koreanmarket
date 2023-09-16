@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,7 @@ import { Reservation } from './entities/reservation.entity';
 import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../product/entities/product.entity';
+import { query } from 'express';
 
 @Injectable()
 export class ReservationService {
@@ -21,9 +22,31 @@ export class ReservationService {
   ) {
     const newReservation = await this.reservationRepository.create({
       ...createReservationDto,
-      user: user,
+      user,
     });
     await this.reservationRepository.save(newReservation);
     return newReservation;
+  }
+  async reservationGetAll() {
+    // const reservations = await this.reservationRepository.find({
+    //   relations: ['users'], //관계형으로 이어진것을 보여줌
+    // });
+    // return { count: reservations.length, reservations };
+    const queryBuilder = await this.reservationRepository.createQueryBuilder(
+      'reservation',
+    );
+    queryBuilder.leftJoinAndSelect('reservation.user', 'users');
+    queryBuilder.leftJoinAndSelect('reservation.product', 'product');
+    const { entities } = await queryBuilder.getRawAndEntities();
+    return entities;
+  }
+
+  async reservationGetById(id: string) {
+    const reservation = await this.reservationRepository.findOne({
+      where: { id },
+      relations: ['user', 'product'],
+    });
+    if (reservation) return reservation;
+    throw new HttpException('No reservation', HttpStatus.NOT_FOUND);
   }
 }

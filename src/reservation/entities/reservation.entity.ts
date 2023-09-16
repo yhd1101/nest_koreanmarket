@@ -15,7 +15,8 @@ export class Reservation extends CommonEntity {
   @Column()
   public location: string;
 
-  @OneToOne(() => Product, (product: Product) => product.Reservation)
+  @OneToOne(() => Product, (product: Product) => product.reservation)
+  @JoinColumn()
   public product: Product;
 
   @Column({
