@@ -20,18 +20,15 @@ import { ProductInterface } from '../auth/interfaces/product.interface';
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
-  @Post(':id')
+  @Post()
   @UseGuards(JwtAuthGuard)
   async createReservation(
-    @Param('id') id: string,
-    @Req() reqs: ProductInterface,
     @Req() req: RequestWithUserInterface,
     @Body() createReservationDto: CreateReservationDto,
   ) {
     const newReservation = await this.reservationService.productReservation(
       createReservationDto,
       req.user,
-      reqs.product,
     );
     return newReservation;
   }

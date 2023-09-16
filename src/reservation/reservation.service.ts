@@ -18,12 +18,10 @@ export class ReservationService {
   async productReservation(
     createReservationDto: CreateReservationDto,
     user: User,
-    product: Product,
   ) {
     const newReservation = await this.reservationRepository.create({
       ...createReservationDto,
       user: user,
-      product,
     });
     await this.reservationRepository.save(newReservation);
     return newReservation;
