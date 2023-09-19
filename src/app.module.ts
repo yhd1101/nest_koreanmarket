@@ -11,6 +11,7 @@ import { EmailModule } from './email/email.module';
 import { RedisModule } from './redis/redis.module';
 import { CommentModule } from './comment/comment.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { RatingModule } from './rating/rating.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -62,6 +63,7 @@ import * as Joi from '@hapi/joi';
     RedisModule,
     CommentModule,
     ReservationModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

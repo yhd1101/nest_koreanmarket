@@ -34,6 +34,7 @@ export class ReservationController {
 
   @Get()
   async getAllReservation(
+    // @Req() req: RequestWithUserInterface,
     @Query('user') user?: User,
     @Query('product') product?: Product,
   ) {

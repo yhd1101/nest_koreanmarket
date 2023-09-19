@@ -1,4 +1,11 @@
-import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  OneToMany,
+} from 'typeorm';
 import { CommonEntity } from '../../common/entities/common.entity';
 import {
   HttpException,
@@ -10,7 +17,9 @@ import * as gravatar from 'gravatar';
 import { Provider } from './provider.enum';
 import { Product } from '../../product/entities/product.entity';
 import { Comment } from '../../comment/entities/comment.entity';
-import { Reservation } from '../../reservation/entities/reservation.entity'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
+import { Reservation } from '../../reservation/entities/reservation.entity';
+import { Rating } from '../../rating/entities/rating.entity';
+import Joi from '@hapi/joi'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
 
 @Entity()
 export class User extends CommonEntity {
@@ -39,6 +48,10 @@ export class User extends CommonEntity {
 
   @Column({ nullable: true })
   public profileImg?: string;
+
+  @ManyToMany(() => Rating, (rating: Rating) => rating.seller)
+  @JoinColumn()
+  public rating: Rating;
 
   @BeforeInsert() //데이터를 넣기전에 실행하는 함수
   async beforeSaveFunction(): Promise<void> {

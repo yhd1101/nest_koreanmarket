@@ -42,7 +42,7 @@ export class ReservationService {
       queryBuilder.where('reservation.product.id = :product', { product });
     }
     const { entities } = await queryBuilder.getRawAndEntities();
-    return { count: entities.length, body: entities };
+    return entities;
   }
 
   async reservationGetById(id: string) {
