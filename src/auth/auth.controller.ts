@@ -24,8 +24,10 @@ import { NaverAuthGuard } from './guards/naver-auth.guard';
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiOperation,
   ApiResponse,
   ApiTags,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { User } from '../users/entities/user.entity';
 
@@ -57,6 +59,8 @@ export class AuthController {
   }
   //로그인 이메일, 비밀번호맞는지 이메일먼저찾기,
   @Post('login')
+  @ApiOperation({ summary: '로그인API', description: '로그인해주는 api' })
+  @ApiCreatedResponse({ description: '로그인함', type: User })
   @ApiBody({ type: LoginUserDto })
   @HttpCode(200)
   @UseGuards(LocalAuthGuard) //Guard에서 검증됨
@@ -71,7 +75,9 @@ export class AuthController {
   }
 
   @Get()
+  @ApiBearerAuth('access-token')
   @HttpCode(200)
+  @ApiOperation({ summary: '프로필 정보', description: '프로필정보' })
   @UseGuards(JwtAuthGuard)
   async getUserInfoByToken(@Req() req: RequestWithUserInterface) {
     const { user } = req;
