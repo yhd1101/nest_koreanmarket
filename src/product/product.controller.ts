@@ -12,7 +12,14 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
 
@@ -31,13 +38,12 @@ export class ProductController {
   }
   //product 등록하기
   @Post('/create')
+  @ApiBody({ type: CreateProductDto })
   @ApiOperation({ summary: '상품등록', description: '상품을 등록해줌' })
   @ApiResponse({
-    status: 201,
     description: 'create all products',
-    type: 'array',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized', type: 'string' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard) //로그인유무 확인 등록하기위해서
   async createProduct(
     @Req() req: RequestWithUserInterface,
@@ -54,6 +60,7 @@ export class ProductController {
     );
     return newProduct;
   }
+
   //product 상세정보 불러오기(id)
   @Get(':id')
   @ApiOperation({

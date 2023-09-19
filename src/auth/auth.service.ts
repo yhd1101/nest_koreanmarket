@@ -109,6 +109,7 @@ export class AuthService {
   }
   async changePassword(changePasswordDto: ChangePasswordDto) {
     const email = await this.decodedConfirmationToken(changePasswordDto.token);
+    console.log(changePasswordDto.token);
     return await this.usersService.changePassword(
       email,
       changePasswordDto.newPassword,

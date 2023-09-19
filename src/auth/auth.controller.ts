@@ -86,12 +86,19 @@ export class AuthController {
   }
 
   @Post('forgot/password') //비밀번호 재설정위한 메일전송
+  @ApiOperation({
+    summary: '비밀번호 재설정을위한 메일전송',
+    description: '재설정해줌',
+  })
   async forgotPassword(@Body('email') email: string) {
     return await this.authService.forgotPassword(email);
   }
 
   @Post('change/password') //비밀번호 바꾸기
+  @ApiOperation({ summary: '비밀번호 바꾸기', description: '비밀번호 수정' })
+  @ApiBody({ type: ChangePasswordDto })
   async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+    console.log(typeof changePasswordDto.token);
     return await this.authService.changePassword(changePasswordDto);
   }
   //구글에 접속하는 코드(로그인요청 코드)
