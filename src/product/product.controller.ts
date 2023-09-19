@@ -30,8 +30,6 @@ export class ProductController {
   //product전체 불러오기
   @Get()
   @ApiOperation({ summary: '상품조회', description: '전체상품을 조회한다' })
-  @ApiResponse({ status: 200, description: 'Get all products', type: 'array' })
-  @ApiResponse({ status: 404, description: 'Not Found', type: 'string' })
   async getAllProducts(@Query('category') category?: string) {
     const products = await this.productService.productGetAll(category);
     return products;

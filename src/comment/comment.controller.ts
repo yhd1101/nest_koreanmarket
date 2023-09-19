@@ -11,12 +11,26 @@ import { CommentService } from './comment.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('Comment')
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post('create')
+  @ApiBody({ type: CreateCommentDto })
+  @ApiOperation({ summary: '댓글등록', description: '댓글 등록해주는 api' })
+  @ApiResponse({
+    description: 'create comment',
+  })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   async createComment(
     @Req() req: RequestWithUserInterface,
