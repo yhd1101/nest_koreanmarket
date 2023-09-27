@@ -37,10 +37,10 @@ export class CreateProductDto {
   @ApiProperty({
     description: 'insert category',
     default: ['String'],
+    required: false,
   })
   @IsArray()
-  @IsNotEmpty()
-  category: string[];
+  category?: string[];
 
   @ApiProperty({
     description: 'insert region',

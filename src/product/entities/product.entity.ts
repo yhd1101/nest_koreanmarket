@@ -34,7 +34,7 @@ export class Product extends CommonEntity {
   @Column('text', {
     array: true,
   })
-  public category: string[];
+  public category?: string[];
 
   @Column()
   public region: string;

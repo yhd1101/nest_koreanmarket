@@ -113,12 +113,14 @@ export class AuthController {
   @HttpCode(200)
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleLoginCallBack(@Req() req: any, @Res() res: any): Promise<any> {
+  async googleLoginCallBack(
+    @Req() req: RequestWithUserInterface,
+  ): Promise<any> {
     //token 생성
     const { user } = req;
     const token = await this.authService.generateAccessToken(user.id);
     const mainPageUrl = 'http://localhost:3000';
-    res.res.redirect(mainPageUrl);
+    req.res.redirect(mainPageUrl);
   }
 
   @HttpCode(200)
