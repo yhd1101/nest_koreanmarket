@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRatingDto } from './dto/create-rating.dto';
-import { UpdateRatingDto } from './dto/update-rating.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Rating } from './entities/rating.entity';
 import { Repository } from 'typeorm';
-import { User } from '../users/entities/user.entity';
+import { Rating } from '@rating/entities/rating.entity';
+import { CreateRatingDto } from '@rating/dto/create-rating.dto';
 
 @Injectable()
 export class RatingService {

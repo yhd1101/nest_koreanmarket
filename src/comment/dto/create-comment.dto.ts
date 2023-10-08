@@ -1,6 +1,6 @@
-import { Product } from '../../product/entities/product.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
+import { Product } from '@product/entities/product.entity';
 
 export class CreateCommentDto {
   @ApiProperty({

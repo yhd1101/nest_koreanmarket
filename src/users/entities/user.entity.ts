@@ -6,7 +6,7 @@ import {
   ManyToMany,
   OneToMany,
 } from 'typeorm';
-import { CommonEntity } from '../../common/entities/common.entity';
+
 import {
   HttpException,
   HttpStatus,
@@ -14,12 +14,12 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import * as gravatar from 'gravatar';
-import { Provider } from './provider.enum';
-import { Product } from '../../product/entities/product.entity';
-import { Comment } from '../../comment/entities/comment.entity';
-import { Reservation } from '../../reservation/entities/reservation.entity';
-import { Rating } from '../../rating/entities/rating.entity';
-import Joi from '@hapi/joi'; //자바스크립트라이브러리를 가져와야해서 * as를 해줌
+import { CommonEntity } from '@common/entities/common.entity';
+import { Product } from '@product/entities/product.entity';
+import { Reservation } from '@reservation/entities/reservation.entity';
+import { Provider } from '@users/entities/provider.enum';
+import { Rating } from '@rating/entities/rating.entity';
+import { Comment } from '@comment/entities/comment.entity';
 
 @Entity()
 export class User extends CommonEntity {

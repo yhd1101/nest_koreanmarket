@@ -1,5 +1,5 @@
 import { NestFactory, Reflector } from '@nestjs/core';
-import { AppModule } from './app.module';
+
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
   ClassSerializerInterceptor,
@@ -9,6 +9,7 @@ import {
 import { TransformInterceptor } from '@common/interceptors/transform.interceptor';
 import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
 import { BaseAPIDocument } from '@common/config/swagger.document';
+import { AppModule } from '@root/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

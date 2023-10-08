@@ -1,9 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from './entities/product.entity';
+
 import { Repository } from 'typeorm';
-import { CreateProductDto } from './dto/create-product.dto';
-import { User } from '../users/entities/user.entity';
+import { Product } from '@product/entities/product.entity';
+import { CreateProductDto } from '@product/dto/create-product.dto';
+import { User } from '@users/entities/user.entity';
+import { PageOptionsDto } from '@common/dtos/page-options.dto';
+import { PageDto } from '@common/dtos/page.dto';
+import { PageMetaDto } from '@common/dtos/page-meta.dto';
 
 @Injectable()
 export class ProductService {
@@ -24,19 +28,53 @@ export class ProductService {
   }
 
   //전체불러오는 로직
-  async productGetAll(category?: string) {
-    //?옵션 있어도그만없어도그만
+  // async productGetAll(category?: string) {
+  //   //?옵션 있어도그만없어도그만
+  //   const queryBuilder = await this.productRepository.createQueryBuilder(
+  //     'product',
+  //   ); //db에 쿼리를직접 해줌
+  //   queryBuilder.leftJoinAndSelect('product.seller', 'seller'); //관계형
+  //   queryBuilder.leftJoinAndSelect('product.comments', 'comments'); //관계형
+  //   if (category && category.length > 0) {
+  //     //category에 검색키워드 이거를 검색하면 가져오겠다.
+  //     queryBuilder.andWhere(':category = ANY(product.category)', { category });
+  //   }
+  //   const { entities } = await queryBuilder.getRawAndEntities();
+  //   return entities;
+  // }
+
+  async getAllProducts(
+    pageOptionsDto: PageOptionsDto,
+    category?: string[],
+  ): Promise<PageDto<Product>> {
     const queryBuilder = await this.productRepository.createQueryBuilder(
       'product',
-    ); //db에 쿼리를직접 해줌
-    queryBuilder.leftJoinAndSelect('product.seller', 'seller'); //관계형
-    queryBuilder.leftJoinAndSelect('product.comments', 'comments'); //관계형
-    if (category && category.length > 0) {
-      //category에 검색키워드 이거를 검색하면 가져오겠다.
-      queryBuilder.andWhere(':category = ANY(product.category)', { category });
+    );
+    queryBuilder.leftJoinAndSelect('product.seller', 'seller');
+    queryBuilder.leftJoinAndSelect('product.comments', 'comments');
+
+    if (category !== undefined) {
+      if (Array.isArray(category)) {
+        queryBuilder.andWhere('product.category IN (:...category)', {
+          category,
+        });
+      } else {
+        queryBuilder.andWhere('product.category = :category', {
+          category,
+        });
+      }
     }
+
+    await queryBuilder
+      .orderBy('product.createdAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
+
+    const itemCount = await queryBuilder.getCount();
     const { entities } = await queryBuilder.getRawAndEntities();
-    return entities;
+
+    const pageMetaDto = new PageMetaDto({ itemCount, pageOptionsDto });
+    return new PageDto(entities, pageMetaDto);
   }
 
   async productGetById(id: string) {

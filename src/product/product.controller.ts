@@ -10,8 +10,7 @@ import {
   Req,
   Query,
 } from '@nestjs/common';
-import { ProductService } from './product.service';
-import { CreateProductDto } from './dto/create-product.dto';
+
 import {
   ApiBearerAuth,
   ApiBody,
@@ -19,8 +18,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
+import { ProductService } from '@product/product.service';
+import { CreateProductDto } from '@product/dto/create-product.dto';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { RequestWithUserInterface } from '@auth/interfaces/requestWithUser.interface';
+import { PageDto } from '@common/dtos/page.dto';
+import { Product } from '@product/entities/product.entity';
+import { PageOptionsDto } from '@common/dtos/page-options.dto';
 
 @ApiTags('Product')
 @Controller('product')
@@ -29,10 +33,17 @@ export class ProductController {
   //product전체 불러오기
   @Get()
   @ApiOperation({ summary: '상품조회', description: '전체상품을 조회한다' })
-  async getAllProducts(@Query('category') category?: string) {
-    const products = await this.productService.productGetAll(category);
-    return products;
+  // async getAllProducts(@Query('category') category?: string) {
+  //   const products = await this.productService.productGetAll(category);
+  //   return products;
+  // }
+  async getAllProducts(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @Query('category') category?: string[],
+  ): Promise<PageDto<Product>> {
+    return await this.productService.getAllProducts(pageOptionsDto, category);
   }
+
   //product 등록하기
   @Post('/create')
   @ApiBody({ type: CreateProductDto })

@@ -7,9 +7,9 @@ import {
   OneToOne,
 } from 'typeorm';
 import { CommonEntity } from '../../common/entities/common.entity';
-import { User } from '../../users/entities/user.entity';
-import { Comment } from '../../comment/entities/comment.entity';
-import { Reservation } from '../../reservation/entities/reservation.entity';
+import { User } from '@users/entities/user.entity';
+import { Reservation } from '@reservation/entities/reservation.entity';
+import { Comment } from '@comment/entities/comment.entity';
 
 @Entity() //model
 export class Product extends CommonEntity {

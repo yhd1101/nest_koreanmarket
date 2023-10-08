@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateReservationDto } from './dto/create-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Reservation } from './entities/reservation.entity';
 import { Repository } from 'typeorm';
-import { User } from '../users/entities/user.entity';
-import { Product } from '../product/entities/product.entity';
+import { Reservation } from '@reservation/entities/reservation.entity';
+import { CreateReservationDto } from '@reservation/dto/create-reservation.dto';
+import { User } from '@users/entities/user.entity';
+import { Product } from '@product/entities/product.entity';
+
 @Injectable()
 export class ReservationService {
   constructor(

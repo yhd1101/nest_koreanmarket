@@ -9,12 +9,9 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { RatingService } from './rating.service';
-import { CreateRatingDto } from './dto/create-rating.dto';
-import { UpdateRatingDto } from './dto/update-rating.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
-import { User } from '../users/entities/user.entity';
+import { RatingService } from '@rating/rating.service';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { CreateRatingDto } from '@rating/dto/create-rating.dto';
 
 @Controller('rating')
 export class RatingController {

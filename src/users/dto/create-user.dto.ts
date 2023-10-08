@@ -1,4 +1,3 @@
-import { Provider } from '../entities/provider.enum';
 import {
   IsEmail,
   IsNotEmpty,
@@ -8,6 +7,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Provider } from '@users/entities/provider.enum';
 
 export class CreateUserDto {
   @ApiProperty({

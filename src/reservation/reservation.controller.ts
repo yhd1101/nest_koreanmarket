@@ -8,12 +8,7 @@ import {
   Req,
   Query,
 } from '@nestjs/common';
-import { ReservationService } from './reservation.service';
-import { CreateReservationDto } from './dto/create-reservation.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
-import { User } from '../users/entities/user.entity';
-import { Product } from '../product/entities/product.entity';
+
 import {
   ApiBearerAuth,
   ApiBody,
@@ -21,6 +16,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ReservationService } from '@reservation/reservation.service';
+import { CreateReservationDto } from '@reservation/dto/create-reservation.dto';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { RequestWithUserInterface } from '@auth/interfaces/requestWithUser.interface';
+import { User } from '@users/entities/user.entity';
+import { Product } from '@product/entities/product.entity';
 
 @ApiTags('Reservation')
 @Controller('reservation')

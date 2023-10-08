@@ -7,10 +7,10 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { OrderService } from './order.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { OrderService } from '@order/order.service';
+import { CreateOrderDto } from '@order/dto/create-order.dto';
+import { UpdateOrderDto } from '@order/dto/update-order.dto';
 
 @ApiTags('Order') //api문서화 카테고리
 @Controller('order')

@@ -6,9 +6,9 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { CommonEntity } from '../../common/entities/common.entity';
-import { Product } from '../../product/entities/product.entity';
-import { User } from '../../users/entities/user.entity';
+import { CommonEntity } from '@common/entities/common.entity';
+import { Product } from '@product/entities/product.entity';
+import { User } from '@users/entities/user.entity';
 
 @Entity()
 export class Reservation extends CommonEntity {
