@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth2'; //확인 잘하기
 import { ConfigService } from '@nestjs/config';
-import { UsersService } from '../../users/users.service';
-import { Provider } from '../../users/entities/provider.enum';
+import { Provider } from '@users/entities/provider.enum';
+import { UsersService } from '@users/users.service';
 
 @Injectable()
 export class GoogleAuthStrategy extends PassportStrategy(

@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
-import { Provider } from '../../users/entities/provider.enum';
 import { ConfigService } from '@nestjs/config';
-import { UsersService } from '../../users/users.service';
+import { Provider } from '@users/entities/provider.enum';
+import { UsersService } from '@users/users.service';
 
 @Injectable()
 export class KakaoAuthStrategy extends PassportStrategy(
@@ -26,10 +26,6 @@ export class KakaoAuthStrategy extends PassportStrategy(
     profile: any,
     done: any,
   ): Promise<any> {
-    // console.log(profile);
-    // const userData = profile._raw[0];
-    // console.log(profile._json.properties.profile_image);
-    // done(null, profile);
     const { displayName, provider } = profile;
     const { profile_image } = profile._json.properties;
     const { email } = profile._json.kakao_account;

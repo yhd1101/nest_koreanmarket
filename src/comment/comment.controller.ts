@@ -7,10 +7,7 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-import { CommentService } from './comment.service';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RequestWithUserInterface } from '../auth/interfaces/requestWithUser.interface';
-import { CreateCommentDto } from './dto/create-comment.dto';
+
 import {
   ApiBearerAuth,
   ApiBody,
@@ -18,6 +15,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { CommentService } from '@comment/comment.service';
+import { CreateCommentDto } from '@comment/dto/create-comment.dto';
+import { RequestWithUserInterface } from '@auth/interfaces/requestWithUser.interface';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 
 @ApiTags('Comment')
 @Controller('comment')

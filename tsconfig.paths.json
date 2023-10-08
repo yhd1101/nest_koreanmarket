@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@root/*": ["./src/*"],// src에있는 부분은 root로 통일함
+      "@auth/*": ["./src/auth/*"],
+      "@comment/*": ["./src/comment/*"],
+      "@common/*": ["./src/common/*"],
+      "@database/*": ["./src/database/*"],
+      "@email/*": ["./src/email/*"],
+      "@order/*": ["./src/order/*"],
+      "@product/*": ["./src/product/*"],
+      "@rating/*": ["./src/rating/*"],
+      "@redis/*": ["./src/redis/*"],
+      "@reservation/*": ["./src/reservation/*"],
+      "@users/*": ["./src/users/*"]
+    }
+  }
+}

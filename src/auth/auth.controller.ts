@@ -1,26 +1,14 @@
 import {
   Body,
   Controller,
-  Param,
   Post,
   HttpCode,
   UseGuards,
   Req,
   Get,
   HttpStatus,
-  Res,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoginUserDto } from '../users/dto/login-user.dto';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { RequestWithUserInterface } from './interfaces/requestWithUser.interface';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
-import { ChangePasswordDto } from '../users/dto/change-password.dto';
-import { GoogleAuthGuard } from './guards/google-auth.guard';
-import { KakaoAuthGuard } from './guards/kakao-auth.guard';
-import { NaverAuthGuard } from './guards/naver-auth.guard';
+
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -30,6 +18,17 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { User } from '../users/entities/user.entity';
+import { AuthService } from '@auth/auth.service';
+import { CreateUserDto } from '@users/dto/create-user.dto';
+import { ConfirmEmailDto } from '@users/dto/confirm-email.dto';
+import { LoginUserDto } from '@users/dto/login-user.dto';
+import { LocalAuthGuard } from '@auth/guards/local-auth.guard';
+import { RequestWithUserInterface } from '@auth/interfaces/requestWithUser.interface';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { ChangePasswordDto } from '@users/dto/change-password.dto';
+import { GoogleAuthGuard } from '@auth/guards/google-auth.guard';
+import { KakaoAuthGuard } from '@auth/guards/kakao-auth.guard';
+import { NaverAuthGuard } from '@auth/guards/naver-auth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')

@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { User } from '../users/entities/user.entity';
-import { Comment } from './entities/comment.entity';
+import { CreateCommentDto } from '@comment/dto/create-comment.dto';
+import { User } from '@users/entities/user.entity';
+import { Comment } from '@comment/entities/comment.entity';
 
 @Injectable()
 export class CommentService {

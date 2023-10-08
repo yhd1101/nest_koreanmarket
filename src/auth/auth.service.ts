@@ -5,19 +5,19 @@ import {
   Inject,
   Injectable,
 } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoginUserDto } from '../users/dto/login-user.dto';
-import { TokenPayloadInterface } from './interfaces/tokenPayload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { EmailService } from '../email/email.service';
-import { verificationEmail } from '../common/template/verificationEmail';
-import { ConfirmEmailDto } from '../users/dto/confirm-email.dto';
 import { CACHE_MANAGER } from '@nestjs/common/cache';
 import { Cache } from 'cache-manager'; //확인잘하기
-import { ChangePasswordDto } from '../users/dto/change-password.dto';
-import { VerificationTokenPayloadInterface } from './interfaces/verificationTokenPayload.interface';
+import { UsersService } from '@users/users.service';
+import { EmailService } from '@email/email.service';
+import { CreateUserDto } from '@users/dto/create-user.dto';
+import { LoginUserDto } from '@users/dto/login-user.dto';
+import { TokenPayloadInterface } from '@auth/interfaces/tokenPayload.interface';
+import { verificationEmail } from '@common/template/verificationEmail';
+import { ConfirmEmailDto } from '@users/dto/confirm-email.dto';
+import { VerificationTokenPayloadInterface } from '@auth/interfaces/verificationTokenPayload.interface';
+import { ChangePasswordDto } from '@users/dto/change-password.dto';
 
 @Injectable()
 export class AuthService {

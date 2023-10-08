@@ -1,18 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { UsersModule } from '../users/users.module';
-import { LocalAuthStrategy } from './strategies/local-auth.strategy';
+import { UsersModule } from '@users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { JwtAuthStrategy } from './strategies/jwt-auth.strategy';
-import { EmailModule } from '../email/email.module';
-import { GoogleAuthStrategy } from './strategies/google-auth.strategy';
-import { KakaoAuthGuard } from './guards/kakao-auth.guard';
-import { KakaoAuthStrategy } from './strategies/kakao-auth.strategy';
-import { NaverAuthGuard } from './guards/naver-auth.guard';
-import { NaverAuthStrategy } from './strategies/naver-auth.strategy';
+import { EmailModule } from '@email/email.module';
+import { AuthController } from '@auth/auth.controller';
+import { AuthService } from '@auth/auth.service';
+import { LocalAuthStrategy } from '@auth/strategies/local-auth.strategy';
+import { JwtAuthStrategy } from '@auth/strategies/jwt-auth.strategy';
+import { GoogleAuthStrategy } from '@auth/strategies/google-auth.strategy';
+import { KakaoAuthStrategy } from '@auth/strategies/kakao-auth.strategy';
+import { NaverAuthStrategy } from '@auth/strategies/naver-auth.strategy';
 
 @Module({
   imports: [

@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-// import { Strategy } from 'passport-naver';
 import { ConfigService } from '@nestjs/config';
-import { UsersService } from '../../users/users.service';
-import { Provider } from '../../users/entities/provider.enum';
 import { Profile, Strategy } from 'passport-naver-v2';
+import { Provider } from '@users/entities/provider.enum';
+import { UsersService } from '@users/users.service';
 
 @Injectable()
 export class NaverAuthStrategy extends PassportStrategy(
@@ -16,10 +15,6 @@ export class NaverAuthStrategy extends PassportStrategy(
     private readonly usersService: UsersService,
   ) {
     super({
-      // clientID: configService.get('NAVER_AUTH_CLIENTID'),
-      // clientSecret: configService.get('NAVER_AUTH_CLIENTSECRET'),
-      // callbackURL: configService.get('NAVER_AUTH_CALLBACK_URL'),
-      // scope: ['profile', 'email'],
       clientID: configService.get('NAVER_AUTH_CLIENTID'),
       clientSecret: configService.get('NAVER_AUTH_CLIENTSECRET'),
       callbackURL: configService.get('NAVER_AUTH_CALLBACK_URL'),

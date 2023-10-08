@@ -2,9 +2,8 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { AuthService } from '../auth.service';
-import { CreateUserDto } from '../../users/dto/create-user.dto';
-import { User } from '../../users/entities/user.entity'; //이메일 로그인시 적용되는 보안 라이브러리
+import { AuthService } from '@auth/auth.service';
+import { User } from '@users/entities/user.entity';
 
 @Injectable()
 export class LocalAuthStrategy extends PassportStrategy(Strategy) {
