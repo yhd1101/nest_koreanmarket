@@ -15,7 +15,6 @@ import { CreateProductDto } from './dto/create-product.dto';
 import {
   ApiBearerAuth,
   ApiBody,
-  ApiCreatedResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -46,9 +45,6 @@ export class ProductController {
   async createProduct(
     @Req() req: RequestWithUserInterface,
     @Body() createProductDto: CreateProductDto,
-    // @Body('name') name: string,
-    // @Body('desc') desc: string,
-    // @Body('price') price: number,
   ) {
     console.log(createProductDto);
     console.log(req.user);
