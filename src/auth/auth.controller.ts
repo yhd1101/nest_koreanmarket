@@ -7,6 +7,7 @@ import {
   Req,
   Get,
   HttpStatus,
+  Res,
 } from '@nestjs/common';
 
 import {
@@ -29,6 +30,7 @@ import { ChangePasswordDto } from '@users/dto/change-password.dto';
 import { GoogleAuthGuard } from '@auth/guards/google-auth.guard';
 import { KakaoAuthGuard } from '@auth/guards/kakao-auth.guard';
 import { NaverAuthGuard } from '@auth/guards/naver-auth.guard';
+import { Response } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -97,7 +99,6 @@ export class AuthController {
   @ApiOperation({ summary: '비밀번호 바꾸기', description: '비밀번호 수정' })
   @ApiBody({ type: ChangePasswordDto })
   async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
-    console.log(typeof changePasswordDto.token);
     return await this.authService.changePassword(changePasswordDto);
   }
   //구글에 접속하는 코드(로그인요청 코드)
@@ -114,12 +115,23 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   async googleLoginCallBack(
     @Req() req: RequestWithUserInterface,
+    @Res() res: Response,
   ): Promise<any> {
     //token 생성
     const { user } = req;
     const token = await this.authService.generateAccessToken(user.id);
+    console.log('adadsdad', token);
     const mainPageUrl = 'http://localhost:3000';
-    req.res.redirect(mainPageUrl);
+
+    const script = `
+      <script>
+        window.opener.postMessage('loginComplete', '${mainPageUrl}');
+        window.localStorage.setItem('user', '${JSON.stringify(user)}');
+        window.localStorage.setItem('token', '${token}');
+        window.close();
+      </script>
+    `;
+    res.send(script);
   }
 
   @HttpCode(200)

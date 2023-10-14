@@ -57,8 +57,6 @@ export class ProductController {
     @Req() req: RequestWithUserInterface,
     @Body() createProductDto: CreateProductDto,
   ) {
-    console.log(createProductDto);
-    console.log(req.user);
     const newProduct = await this.productService.productCreate(
       createProductDto,
       req.user,

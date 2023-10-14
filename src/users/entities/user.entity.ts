@@ -49,7 +49,7 @@ export class User extends CommonEntity {
   @Column({ nullable: true })
   public profileImg?: string;
 
-  @ManyToMany(() => Rating, (rating: Rating) => rating.seller)
+  @ManyToMany(() => Rating, (rating: Rating) => rating.buyer)
   @JoinColumn()
   public rating: Rating;
 

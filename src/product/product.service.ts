@@ -22,7 +22,7 @@ export class ProductService {
       ...createProductDto,
       seller: user,
     });
-    console.log(newProduct);
+
     await this.productRepository.save(newProduct);
     return newProduct;
   }
@@ -52,6 +52,8 @@ export class ProductService {
     );
     queryBuilder.leftJoinAndSelect('product.seller', 'seller');
     queryBuilder.leftJoinAndSelect('product.comments', 'comments');
+
+    console.log(category);
 
     if (category !== undefined) {
       if (Array.isArray(category)) {

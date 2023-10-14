@@ -46,6 +46,7 @@ export class GoogleAuthStrategy extends PassportStrategy(
           HttpStatus.CONFLICT,
         );
       }
+      console.log('dddddd', user);
       done(null, user);
     } catch (err) {
       //이메일이 없으면 회원가입

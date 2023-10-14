@@ -5,7 +5,7 @@ import { User } from '@users/entities/user.entity';
 export class Rating extends CommonEntity {
   @ManyToMany(() => User, (user: User) => user.rating)
   @JoinColumn()
-  public seller: User;
+  public buyer: User;
 
   @Column({
     default: 1,
