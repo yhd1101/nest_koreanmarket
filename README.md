@@ -4,12 +4,15 @@
 </p>
 <p>Nginx는 Event-Driven 방식으로 클라이언트에 요청을 처리해주는 웹 서버이다.</p>
 
-<H2>Nginx와 같은 웹 서버를 왜 사용할까?</H2>
+<H3>Nginx와 같은 웹 서버를 왜 사용할까?</H2>
 <ul>
   <li>클라이언트의 요청 처리를 분산시킬 수 있는 로드 밸런스를 사용함으로써 효율적인 처리함</li>
   <li>정적파일을 다이렉트로 제공해주기 때문에 백엔드 서버에 부담을 주지 않음</li>
   <li>클라이언트는 Ngnix 포트로만 백엔드 서버에 접근할 수 있어 보안에 도움이 됨</li>
 </ul>
+
+<H3>실습</H3>
+<p그전에 도커를 설정해야함 도커 설정방법은</p> <a href="https://github.com/yhd1101/nest_koreanmarket/commit/02150f54a6c4ab7f3c652492fcab19ed1ce1b54c">docker</a> <p>여기에있음</p>
 
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
