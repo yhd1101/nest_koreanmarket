@@ -1,8 +1,9 @@
+<H1>Nginx란?</H1>
 <p align="left">
   <a href="https://velog.velcdn.com/post-images/jeff0720/91343f60-eb33-11e8-b115-5df0fc60ff3a/ngnix.png target="blank"><img src="https://velog.velcdn.com/post-images/jeff0720/91343f60-eb33-11e8-b115-5df0fc60ff3a/ngnix.png" width="200" alt="Nest Logo" /></a>
 </p>
-<H1>Nginx란?</H1>
-<p>Nginx는 Event-Driven 방식으로 클라이언트에 요청을 처리해주는 웹 서버 입니다.</p>
+<p>Nginx는 Event-Driven 방식으로 클라이언트에 요청을 처리해주는 웹 서버이다.</p>
+
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
