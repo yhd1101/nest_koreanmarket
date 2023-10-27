@@ -1,6 +1,6 @@
 <H1>Nginx</H1>
 <p align="left">
-  <a href="https://velog.velcdn.com/post-images/jeff0720/91343f60-eb33-11e8-b115-5df0fc60ff3a/ngnix.png target="blank"><img src="https://velog.velcdn.com/post-images/jeff0720/91343f60-eb33-11e8-b115-5df0fc60ff3a/ngnix.png" width="200" alt="Nest Logo" /></a>
+  <a href="https://velog.velcdn.com/post-images/jeff0720/91343f60-eb33-11e8-b115-5df0fc60ff3a/ngnix.png target="blank"><img src="https://velog.velcdn.com/post-images/jeff0720/91343f60-eb33-11e8-b115-5df0fc60ff3a/ngnix.png" width="500" alt="nginx" /></a>
 </p>
 <p>Nginx는 Event-Driven 방식으로 클라이언트에 요청을 처리해주는 웹 서버이다.</p>
 
@@ -18,8 +18,17 @@
 
 <H1>Swagger</H1>
 <p align="left">
-  <a href="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F100b5a0e-959d-48b7-b9b7-a3b0472740e6%2Fcb5afc44-21f7-4dd0-9a49-a9e2b722465c%2FUntitled.png?table=block&id=8d4a7b1c-9589-492c-8b00-e98c5907931c&spaceId=100b5a0e-959d-48b7-b9b7-a3b0472740e6&width=2000&userId=52657ad4-9c58-4d0e-aaf5-7723cf2ac8e9&cache=v2"> <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F100b5a0e-959d-48b7-b9b7-a3b0472740e6%2Fcb5afc44-21f7-4dd0-9a49-a9e2b722465c%2FUntitled.png?table=block&id=8d4a7b1c-9589-492c-8b00-e98c5907931c&spaceId=100b5a0e-959d-48b7-b9b7-a3b0472740e6&width=2000&userId=52657ad4-9c58-4d0e-aaf5-7723cf2ac8e9&cache=v2/>
+   <a href="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F100b5a0e-959d-48b7-b9b7-a3b0472740e6%2Fcb5afc44-21f7-4dd0-9a49-a9e2b722465c%2FUntitled.png?table=block&id=8d4a7b1c-9589-492c-8b00-e98c5907931c&spaceId=100b5a0e-959d-48b7-b9b7-a3b0472740e6&width=2000&userId=52657ad4-9c58-4d0e-aaf5-7723cf2ac8e9&cache=v2"><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F100b5a0e-959d-48b7-b9b7-a3b0472740e6%2Fcb5afc44-21f7-4dd0-9a49-a9e2b722465c%2FUntitled.png?table=block&id=8d4a7b1c-9589-492c-8b00-e98c5907931c&spaceId=100b5a0e-959d-48b7-b9b7-a3b0472740e6&width=2000&userId=52657ad4-9c58-4d0e-aaf5-7723cf2ac8e9&cache=v2" width="500" alt="Swagger" /></a>
 </p>
+<p>Swagger 는 REST API를 설계, 빌드, 문서화 및 사용하는 데 도움이되는 OpenAPI 사양을 중심으로 구축 된 오픈 소스 도구이다.</p>
+<H3>Swagger를 왜 사용하나??</H3>
+<ul>
+  <li>적용하기 쉽다.. Spring REST Docs라는 문서화 도구와는 달리 Swagger는 코드 몇 줄만 추가하면 만들 수 있음</li>
+  <li>테스트 할 수 있는 UI를 제공한다. Spring REST Docs는 테스트를 돌리면서 성공하는지 실패하는지 확인하지만 Swagger는 문서 화면에서 API를 바로 테스트 할 수 있다.</li>
+</ul>
+
+
+
 
 
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
